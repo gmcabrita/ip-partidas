@@ -164,7 +164,8 @@ export function TimetableView({ departures, isLoading, columnVisibility, onTrain
             return (
               <TableRow
                 key={`${departure.NComboio1}-${departure.DataHoraPartidaChegada}-${index}`}
-                className={`${departure.ComboioPassou ? "opacity-50" : ""} ${status.isCancelled ? "opacity-60 line-through decoration-red-500" : ""}`}
+                className={`${departure.ComboioPassou ? "opacity-50" : ""} ${status.isCancelled ? "opacity-60 line-through decoration-red-500" : ""} ${onTrainClick ? "cursor-pointer hover:bg-muted/50" : ""}`}
+                onClick={onTrainClick ? () => onTrainClick(departure.NComboio1) : undefined}
               >
                 {columnVisibility.hora && (
                   <TableCell className="font-mono text-lg font-semibold">
@@ -191,17 +192,7 @@ export function TimetableView({ departures, isLoading, columnVisibility, onTrain
                 )}
                 {columnVisibility.comboio && (
                   <TableCell className="font-mono">
-                    {onTrainClick ? (
-                      <button
-                        type="button"
-                        onClick={() => onTrainClick(departure.NComboio1)}
-                        className="text-primary hover:underline cursor-pointer"
-                      >
-                        {departure.NComboio1}
-                      </button>
-                    ) : (
-                      departure.NComboio1
-                    )}
+                    {departure.NComboio1}
                   </TableCell>
                 )}
                 {columnVisibility.servico && (
