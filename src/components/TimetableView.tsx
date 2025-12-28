@@ -14,6 +14,7 @@ interface TimetableViewProps {
   departures: Departure[];
   isLoading?: boolean;
   columnVisibility: ColumnVisibility;
+  onTrainClick?: (trainId: number) => void;
 }
 
 function getServiceBadgeVariant(service: string): "default" | "secondary" | "outline" {
@@ -107,7 +108,7 @@ function getStatusInfo(departure: Departure): {
   };
 }
 
-export function TimetableView({ departures, isLoading, columnVisibility }: TimetableViewProps) {
+export function TimetableView({ departures, isLoading, columnVisibility, onTrainClick }: TimetableViewProps) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -189,7 +190,19 @@ export function TimetableView({ departures, isLoading, columnVisibility }: Timet
                   </TableCell>
                 )}
                 {columnVisibility.comboio && (
-                  <TableCell className="font-mono">{departure.NComboio1}</TableCell>
+                  <TableCell className="font-mono">
+                    {onTrainClick ? (
+                      <button
+                        type="button"
+                        onClick={() => onTrainClick(departure.NComboio1)}
+                        className="text-primary hover:underline cursor-pointer"
+                      >
+                        {departure.NComboio1}
+                      </button>
+                    ) : (
+                      departure.NComboio1
+                    )}
+                  </TableCell>
                 )}
                 {columnVisibility.servico && (
                   <TableCell>

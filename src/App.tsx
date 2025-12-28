@@ -4,6 +4,7 @@ import { ServiceTypeSelect } from "@/components/ServiceTypeSelect";
 import { DestinationFilter } from "@/components/DestinationFilter";
 import { DatePicker } from "@/components/DatePicker";
 import { TimetableView } from "@/components/TimetableView";
+import { TrainInfoModal } from "@/components/TrainInfoModal";
 import { ColumnToggle } from "@/components/ColumnToggle";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -37,6 +38,7 @@ function App() {
   const [selectedDestinations, setSelectedDestinations] = useState<string[]>(
     () => loadDestinations() ?? []
   );
+  const [selectedTrainId, setSelectedTrainId] = useState<number | null>(null);
 
   const isInitialMount = useRef(true);
 
@@ -206,10 +208,17 @@ function App() {
                 departures={filteredDepartures}
                 isLoading={isLoading}
                 columnVisibility={columnVisibility}
+                onTrainClick={setSelectedTrainId}
               />
             </CardContent>
           </Card>
         )}
+
+        <TrainInfoModal
+          trainId={selectedTrainId}
+          date={date}
+          onClose={() => setSelectedTrainId(null)}
+        />
       </main>
 
       <footer className="border-t bg-card mt-auto">

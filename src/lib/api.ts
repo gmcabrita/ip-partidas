@@ -1,4 +1,4 @@
-import type { StationSearchResponse, TimetableResponse } from "@/types";
+import type { StationSearchResponse, TimetableResponse, TrainInformationResponse } from "@/types";
 
 async function fetchApi<T>(url: string): Promise<T> {
   const response = await fetch(url);
@@ -45,4 +45,14 @@ function formatDate(date: Date): string {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+export async function getTrainInformation(
+  trainId: number,
+  date: Date,
+): Promise<TrainInformationResponse> {
+  const dateStr = formatDate(date);
+  const url = `https://run.gmcabrita.com/ip.getTrainInformation/${trainId}/${dateStr}`;
+
+  return fetchApi<TrainInformationResponse>(url);
 }

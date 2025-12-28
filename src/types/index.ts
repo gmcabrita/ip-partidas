@@ -85,3 +85,27 @@ export const DEFAULT_COLUMN_VISIBILITY: ColumnVisibility = {
   operador: true,
   estado: true,
 };
+
+export interface TrainStop {
+  NodeID: number;
+  NomeEstacao: string;
+  HoraProgramada: string;
+  ComboioPassou: boolean;
+  Observacoes: string;
+}
+
+export interface TrainInformation {
+  TipoServico: string;
+  Operador: string;
+  Origem: string;
+  Destino: string;
+  DataHoraOrigem: string;
+  DataHoraDestino: string;
+  DuracaoViagem: string;
+  SituacaoComboio: string;
+  NodesPassagemComboio: TrainStop[];
+}
+
+export interface TrainInformationResponse {
+  response: TrainInformation;
+}
