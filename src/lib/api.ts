@@ -1,10 +1,5 @@
 import type { StationSearchResponse, TimetableResponse } from "@/types";
 
-// Use proxy in development, direct URL in production
-const BASE_URL = import.meta.env.DEV
-  ? "/api"
-  : "https://www.infraestruturasdeportugal.pt/negocios-e-servicos";
-
 async function fetchApi<T>(url: string): Promise<T> {
   const response = await fetch(url);
 
@@ -21,7 +16,7 @@ export async function searchStations(query: string): Promise<StationSearchRespon
   }
 
   const encodedQuery = encodeURIComponent(query);
-  const url = `${BASE_URL}/estacao-nome/${encodedQuery}`;
+  const url = `https://run.gmcabrita.com/ip.getStations/${encodedQuery}`;
 
   return fetchApi<StationSearchResponse>(url);
 }
@@ -40,7 +35,7 @@ export async function getTimetable(
   const encodedEnd = encodeURIComponent(endTime);
   const encodedServices = encodeURIComponent(services);
 
-  const url = `${BASE_URL}/partidas-chegadas/${nodeId}/${encodedStart}/${encodedEnd}/${encodedServices}`;
+  const url = `https://run.gmcabrita.com/ip.getTimetables/${nodeId}/${encodedStart}/${encodedEnd}/${encodedServices}`;
 
   return fetchApi<TimetableResponse>(url);
 }
