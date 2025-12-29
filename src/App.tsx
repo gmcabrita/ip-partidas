@@ -124,7 +124,7 @@ function App() {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-3 sm:px-4 py-6">
           <div className="flex items-center gap-3">
             <Train className="h-8 w-8 text-primary" />
             <div>
@@ -137,29 +137,29 @@ function App() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-3 sm:px-4 py-8">
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="text-lg">Pesquisar Horários</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <div className="space-y-2">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 min-w-0">
+              <div className="space-y-2 min-w-0">
                 <Label htmlFor="station">Estação</Label>
                 <StationSearch value={station} onChange={handleStationChange} />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 min-w-0">
                 <Label htmlFor="services">Tipos de Serviço</Label>
                 <ServiceTypeSelect value={serviceTypes} onChange={handleServiceTypesChange} />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 min-w-0">
                 <Label htmlFor="date">Data</Label>
                 <DatePicker value={date} onChange={setDate} />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 min-w-0">
                 <Label htmlFor="destinations">Destinos</Label>
                 <DestinationFilter
                   value={selectedDestinations}
@@ -220,7 +220,7 @@ function App() {
       </main>
 
       <footer className="border-t bg-card mt-auto">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-3 sm:px-4 py-4">
           <p className="text-center text-sm text-muted-foreground">
             Dados fornecidos por{" "}
             <a

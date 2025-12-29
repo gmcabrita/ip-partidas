@@ -63,12 +63,12 @@ export function StationSearch({ value, onChange }: StationSearchProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between"
+          className="w-full justify-between min-w-0"
         >
           {value ? (
-            <span className="flex items-center gap-2">
-              <Train className="h-4 w-4" />
-              {value.Nome}
+            <span className="flex items-center gap-2 min-w-0">
+              <Train className="h-4 w-4 shrink-0" />
+              <span className="truncate">{value.Nome}</span>
             </span>
           ) : (
             "Selecionar estação..."

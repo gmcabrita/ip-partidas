@@ -52,16 +52,16 @@ export function ServiceTypeSelect({ value, onChange }: ServiceTypeSelectProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between h-auto min-h-10"
+          className="w-full justify-between h-auto min-h-10 min-w-0"
         >
-          <div className="flex flex-wrap gap-1 items-center">
+          <div className="flex flex-wrap gap-1 items-center min-w-0">
             {value.length === 0 ? (
               <span className="text-muted-foreground">
                 Selecionar tipos de serviço...
               </span>
             ) : value.length === SERVICE_TYPES.length ? (
               <span className="flex items-center gap-2">
-                <TrainFront className="h-4 w-4" />
+                <TrainFront className="h-4 w-4 shrink-0" />
                 Todos os serviços
               </span>
             ) : (

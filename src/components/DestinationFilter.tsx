@@ -60,10 +60,10 @@ export function DestinationFilter({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between h-auto min-h-10"
+          className="w-full justify-between h-auto min-h-10 min-w-0"
           disabled={availableDestinations.length === 0}
         >
-          <div className="flex flex-wrap gap-1 items-center">
+          <div className="flex flex-wrap gap-1 items-center min-w-0">
             {availableDestinations.length === 0 ? (
               <span className="text-muted-foreground">
                 Sem destinos disponiveis
@@ -74,7 +74,7 @@ export function DestinationFilter({
               </span>
             ) : allSelected ? (
               <span className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
+                <MapPin className="h-4 w-4 shrink-0" />
                 Todos os destinos
               </span>
             ) : (
