@@ -6,6 +6,7 @@ import { DatePicker } from "@/components/DatePicker";
 import { TimetableView } from "@/components/TimetableView";
 import { TrainInfoModal } from "@/components/TrainInfoModal";
 import { ColumnToggle } from "@/components/ColumnToggle";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { getTimetable } from "@/lib/api";
@@ -21,22 +22,22 @@ import {
 } from "@/lib/storage";
 import { SERVICE_TYPES, DEFAULT_COLUMN_VISIBILITY } from "@/types";
 import type { Station, Departure, ColumnVisibility } from "@/types";
-import { Train } from "lucide-react";
+import { Train, RefreshCw } from "lucide-react";
 
 function App() {
   const [station, setStation] = useState<Station | null>(() => loadStation());
   const [serviceTypes, setServiceTypes] = useState<string[]>(
-    () => loadServiceTypes() ?? SERVICE_TYPES.map((s) => s.value)
+    () => loadServiceTypes() ?? SERVICE_TYPES.map((s) => s.value),
   );
   const [date, setDate] = useState<Date>(new Date());
   const [departures, setDepartures] = useState<Departure[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [columnVisibility, setColumnVisibility] = useState<ColumnVisibility>(
-    () => loadColumnVisibility() ?? DEFAULT_COLUMN_VISIBILITY
+    () => loadColumnVisibility() ?? DEFAULT_COLUMN_VISIBILITY,
   );
   const [selectedDestinations, setSelectedDestinations] = useState<string[]>(
-    () => loadDestinations() ?? []
+    () => loadDestinations() ?? [],
   );
   const [selectedTrainId, setSelectedTrainId] = useState<number | null>(null);
 
@@ -54,8 +55,7 @@ function App() {
 
     try {
       const result = await getTimetable(station.NodeID, date, serviceTypes);
-      const allDepartures =
-        result.response?.[0]?.NodesComboioTabelsPartidasChegadas || [];
+      const allDepartures = result.response?.[0]?.NodesComboioTabelsPartidasChegadas || [];
       setDepartures(allDepartures);
     } catch (error) {
       console.error("Failed to fetch timetable:", error);
@@ -118,9 +118,7 @@ function App() {
     if (selectedDestinations.length === 0) {
       return departures;
     }
-    return departures.filter((d) =>
-      selectedDestinations.includes(d.NomeEstacaoDestino)
-    );
+    return departures.filter((d) => selectedDestinations.includes(d.NomeEstacaoDestino));
   }, [departures, selectedDestinations]);
 
   return (
@@ -153,10 +151,7 @@ function App() {
 
               <div className="space-y-2">
                 <Label htmlFor="services">Tipos de Serviço</Label>
-                <ServiceTypeSelect
-                  value={serviceTypes}
-                  onChange={handleServiceTypesChange}
-                />
+                <ServiceTypeSelect value={serviceTypes} onChange={handleServiceTypesChange} />
               </div>
 
               <div className="space-y-2">
@@ -176,8 +171,7 @@ function App() {
 
             {!canSearch && (
               <p className="mt-4 text-sm text-muted-foreground">
-                Selecione uma estação e pelo menos um tipo de serviço para ver
-                os horários.
+                Selecione uma estação e pelo menos um tipo de serviço para ver os horários.
               </p>
             )}
           </CardContent>
@@ -188,14 +182,18 @@ function App() {
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>
-                  Partidas de{" "}
-                  <span className="text-primary">{station?.Nome}</span>
+                  Partidas de <span className="text-primary">{station?.Nome}</span>
                 </span>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm font-normal text-muted-foreground">
-                    {filteredDepartures.length} resultado
-                    {filteredDepartures.length !== 1 ? "s" : ""}
-                  </span>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8"
+                    onClick={fetchTimetable}
+                    disabled={isLoading}
+                  >
+                    <RefreshCw className={`h-4 w-4`} />
+                  </Button>
                   <ColumnToggle
                     visibility={columnVisibility}
                     onChange={handleColumnVisibilityChange}

@@ -1,11 +1,7 @@
 import { Settings2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { COLUMNS } from "@/types";
 import type { ColumnVisibility, ColumnId } from "@/types";
 
@@ -36,10 +32,7 @@ export function ColumnToggle({ visibility, onChange }: ColumnToggleProps) {
         <div className="space-y-2">
           <p className="text-sm font-medium mb-3">Colunas visiveis</p>
           {COLUMNS.map((column) => (
-            <label
-              key={column.id}
-              className="flex items-center gap-2 cursor-pointer"
-            >
+            <label key={column.id} className="flex items-center gap-2 cursor-pointer">
               <Checkbox
                 id={column.id}
                 checked={visibility[column.id]}
